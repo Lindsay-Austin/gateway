@@ -1,0 +1,61 @@
+server:
+  port: 9999
+
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: gateway-service
+#  cloud:
+#    gateway:
+#      discovery:
+#        locator:
+#          enabled: true
+#          # 服务名小写
+#          lower-case-service-id: true
+#      routes:
+#      - id: servicea
+#        uri: lb://servicea
+#        predicates:
+#        - Path=/servicea/**
+#        filters:
+#        # 进行token过滤
+#        - StripPrefix=1
+#      default-filters:
+#      - name: Hystrix
+#        args:
+#          name: defaultfallback
+#          fallbackUri: forward:/defaultfallback
+#
+#        # hystrix 信号量隔离，3秒后自动超时
+#        hystrix:
+#          command:
+#            default:
+#              execution:
+#                isolation:
+#                  strategy: SEMAPHORE
+#                  thread:
+#                    timeoutInMilliseconds: 6000
+#          shareSecurityContext: true
+
+
+
+# 注册中心
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+
+# 暴露监控端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
